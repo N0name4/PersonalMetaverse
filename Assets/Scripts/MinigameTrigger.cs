@@ -4,36 +4,45 @@ using UnityEngine;
 
 public class MinigameTrigger : MonoBehaviour
 {
-    public GameObject miniGamePanel;
-    private bool isNear = false;
+    public StartPanelController startPanel;
+    public string gameName;
+    private bool canInteract = false;
 
-    // Update is called once per frame
+    void Start()
+    {
+        if (startPanel != null)
+        {
+            startPanel.gameObject.SetActive(false);  // 게임 시작 시 패널 숨기기
+        }
+    }
+
     void Update()
     {
-        if (isNear && Input.GetKeyDown(KeyCode.E)) // E 키를 누르면 실행
+        if (canInteract && Input.GetKeyDown(KeyCode.E))  // 'E' 입력 시 패널 활성화
         {
-            miniGamePanel.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape)) // ESC 키를 누르면 닫기
-        {
-            miniGamePanel.SetActive(false);
+            if (startPanel != null)
+            {
+                startPanel.SetGameName(gameName);
+                startPanel.gameObject.SetActive(true);  // 패널을 활성화
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player"))  // 플레이어가 벽과 충돌하면
         {
-            isNear = true;
+            canInteract = true;  // 상호작용 가능 상태로 변경
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player"))  // 벽에서 벗어나면
         {
-            isNear = false;
-            miniGamePanel.SetActive(false);
+            canInteract = false;  // 상호작용 불가능
         }
     }
+
+
 }
