@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinigameTrigger : MonoBehaviour
 {
     public StartPanelController startPanel;
-    public string gameName;
+    public string gameSceneName;
     private bool canInteract = false;
 
     void Start()
@@ -22,7 +22,7 @@ public class MinigameTrigger : MonoBehaviour
         {
             if (startPanel != null)
             {
-                startPanel.SetGameName(gameName);
+                startPanel.SetGameName(gameSceneName);
                 startPanel.gameObject.SetActive(true);  // 패널을 활성화
             }
         }

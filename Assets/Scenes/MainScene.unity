@@ -857,7 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPanel: {fileID: 154376411}
-  gameName: "\uD50C\uB798\uD53C \uBC84\uB4DC \uAC8C\uC784"
+  gameSceneName: Flappy Bird
 --- !u!61 &248988926
 BoxCollider2D:
   m_ObjectHideFlags: 0

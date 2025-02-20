@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class StartPanelController : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class StartPanelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        yesButton.onClick.AddListener(() => ClosePanel());
+        yesButton.onClick.AddListener(() => LoadGameScene());
         noButton.onClick.AddListener(() => ClosePanel());
     }
 
@@ -22,7 +24,7 @@ public class StartPanelController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            ClosePanel();
+            LoadGameScene();
         }
         else if (Input.GetKeyDown(KeyCode.N))
         {
@@ -34,6 +36,14 @@ public class StartPanelController : MonoBehaviour
     {
         currentGameName = gameName;
         gameNameText.text = $"\"{gameName}\" 영역입니다.";
+    }
+
+    private void LoadGameScene()
+    {
+        if (!string.IsNullOrEmpty(currentGameName))
+        {
+            SceneManager.LoadScene(currentGameName); // 씬 전환
+        }
     }
 
     private void ClosePanel()

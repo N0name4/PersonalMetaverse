@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    GameManager gameManager = null;
     Animator animator = null;
     Rigidbody2D _rigidbody = null;
 
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameManager.Instance;
         animator = transform.GetComponentInChildren<Animator>();
         _rigidbody = transform.GetComponent<Rigidbody2D>();
 
@@ -30,26 +32,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (isDead)
+        if (isDead) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            if (deathCooldown <= 0)
-            {
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-                {
-                    // 게임 재시작
-                }
-            }
-            else
-            {
-                deathCooldown -= Time.deltaTime;
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-            {
-                isFlap = true;
-            }
+            isFlap = true;
         }
     }
 
@@ -80,5 +67,6 @@ public class Player : MonoBehaviour
         animator.SetBool("isDie", true);
         isDead = true;
         deathCooldown = 1f;
+        gameManager.GameOver();
     }
 }
